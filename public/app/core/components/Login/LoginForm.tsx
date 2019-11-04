@@ -94,7 +94,7 @@ export class LoginForm extends PureComponent<Props, State> {
             <button
               type="submit"
               aria-label="Login button"
-              className={`btn btn-large p-x-2 ${this.state.valid ? 'btn-primary' : 'btn-inverse'}`}
+              className={`btn btn-large p-x-2 ${this.state.valid ? 'btn-secondary' : 'btn-inverse'}`}
               onClick={this.onSubmit}
               disabled={!this.state.valid}
             >

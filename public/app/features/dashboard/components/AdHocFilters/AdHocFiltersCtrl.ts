@@ -10,6 +10,7 @@ export class AdHocFiltersCtrl {
   variable: any;
   dashboard: DashboardModel;
   removeTagFilterSegment: any;
+  window: any;
 
   /** @ngInject */
   constructor(
@@ -17,7 +18,8 @@ export class AdHocFiltersCtrl {
     private datasourceSrv: DatasourceSrv,
     private $q: IQService,
     private variableSrv: VariableSrv,
-    $scope: any
+    $scope: any,
+    $window: any
   ) {
     this.removeTagFilterSegment = uiSegmentSrv.newSegment({
       fake: true,
@@ -25,6 +27,8 @@ export class AdHocFiltersCtrl {
     });
     this.buildSegmentModel();
     this.dashboard.events.on('template-variable-value-updated', this.buildSegmentModel.bind(this), $scope);
+    this.window = $window;
+
   }
 
   buildSegmentModel() {
@@ -60,12 +64,28 @@ export class AdHocFiltersCtrl {
     return this.datasourceSrv.get(this.variable.datasource).then(ds => {
       const options: any = {};
       let promise = null;
+      const url: string = this.window.location.href;
 
       if (segment.type !== 'value') {
-        promise = ds.getTagKeys ? ds.getTagKeys() : Promise.resolve([]);
+        // test the current dashboard
+        if (url.indexOf("agent") > -1) {
+          promise = ds.getTagKeysFromMeasurement("agent_status");
+        } else if (url.indexOf("pg-instance-database") > -1) {
+          promise = ds.getTagKeysFromMeasurement("pg_database");
+        } else if (url.indexOf("db-time") > -1) {
+          promise = ds.getTagKeysFromMeasurement("pg_active_session_history");
+        } else if (url.indexOf("server") > -1 ||
+          url.indexOf("registered-server") > -1) {
+          promise = ds.getTagKeysFromMeasurement("server_stats");
+        } else if (url.indexOf("query") > -1 ||
+          url.indexOf("sql-stat") > -1) {
+          promise = ds.getTagKeysFromMeasurement("pg_stat_statements");
+        } else {
+          promise = ds.getTagKeysFromMeasurement("pg_instance_status");
+        }
       } else {
         options.key = this.segments[index - 2].value;
-        promise = ds.getTagValues ? ds.getTagValues(options) : Promise.resolve([]);
+        promise = ds.getTagValues(options);
       }
 
       return promise.then((results: any) => {

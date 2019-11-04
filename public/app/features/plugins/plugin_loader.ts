@@ -141,6 +141,8 @@ import 'vendor/flot/jquery.flot.fillbelow';
 import 'vendor/flot/jquery.flot.crosshair';
 import 'vendor/flot/jquery.flot.dashes';
 import 'vendor/flot/jquery.flot.gauge';
+import sqlFormatter from 'sql-formatter';
+exposeToPlugin('sql-formatter', sqlFormatter);
 
 const flotDeps = [
   'jquery.flot',

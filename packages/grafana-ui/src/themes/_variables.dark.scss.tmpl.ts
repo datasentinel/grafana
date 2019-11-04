@@ -155,6 +155,7 @@ $table-border: $dark-6; // table and cell border
 
 $table-bg-odd: $dark-3;
 $table-bg-hover: $dark-6;
+$table-bg-border: black;
 
 // Buttons
 // -------------------------
@@ -396,4 +397,10 @@ $vertical-resize-handle-dots-hover: $gray-2;
 // Calendar
 $calendar-bg-days: $input-bg;
 $calendar-bg-now: $dark-10;
+
+// Datasentinel
+$bg-progress: black;
+$bg-textarea: black;
+
 `;
+

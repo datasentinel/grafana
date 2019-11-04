@@ -124,7 +124,7 @@ export class GrafanaApp {
       'ang-drag-drop',
       'grafana',
       'pasvaz.bindonce',
-      'react',
+      'react'
     ];
 
     // makes it possible to add dynamic stuff

@@ -11,6 +11,7 @@ export default function BottomSection() {
   const bottomNav: NavModelItem[] = _.filter(navTree, item => item.hideFromMenu);
   const isSignedIn = contextSrv.isSignedIn;
   const user = contextSrv.user;
+  const isAdmin = contextSrv.user.isGrafanaAdmin;
 
   if (user && user.orgCount > 1) {
     const profileNode: any = _.find(bottomNav, { id: 'profile' });
@@ -19,12 +20,19 @@ export default function BottomSection() {
     }
   }
 
-  return (
-    <div className="sidemenu__bottom">
-      {!isSignedIn && <SignIn />}
-      {bottomNav.map((link, index) => {
-        return <BottomNavLinks link={link} user={user} key={`${link.url}-${index}`} />;
-      })}
-    </div>
-  );
+  if (isAdmin) {
+    return (
+      <div className="sidemenu__bottom">
+        {!isSignedIn && <SignIn />}
+        {bottomNav.map((link, index) => {
+          return <BottomNavLinks link={link} user={user} key={`${link.url}-${index}`} />;
+        })}
+      </div>
+    );
+  } else {
+    return (
+      <div className="sidemenu__bottom">
+      </div>
+    );
+  }
 }

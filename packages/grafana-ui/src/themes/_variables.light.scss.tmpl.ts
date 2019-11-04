@@ -142,11 +142,13 @@ $scrollbarBorder: $gray-7;
 
 // Tables
 // -------------------------
+$table-bg: $white;
 $table-bg-accent: $gray-5; // for striping
 $table-border: $gray-3; // table and cell border
 
 $table-bg-odd: $gray-6;
 $table-bg-hover: $gray-5;
+$table-bg-border: $gray-5;
 
 // Buttons
 // -------------------------
@@ -389,4 +391,8 @@ $vertical-resize-handle-dots-hover: $gray-2;
 // Calendar
 $calendar-bg-days: $white;
 $calendar-bg-now: $gray-6;
+
+// Datasentinel
+$bg-progress: #f9f9f9;
+$bg-textarea: white;
 `;

@@ -20,8 +20,15 @@ export class DataProcessor {
       return list;
     }
 
+    console.log('datalist');
+    console.log(dataList);
+
     for (let i = 0; i < dataList.length; i++) {
       const series = dataList[i];
+      console.log('series display in data_processor.ts');
+      console.log(series);
+      console.log('end display in data_processor.ts');
+
       const { timeField } = getTimeField(series);
       if (!timeField) {
         continue;

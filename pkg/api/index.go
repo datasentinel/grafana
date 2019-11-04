@@ -164,17 +164,19 @@ func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, er
 			Url:          setting.AppSubUrl + "/profile",
 			HideFromMenu: true,
 			Children: []*dtos.NavLink{
-				{Text: "Preferences", Id: "profile-settings", Url: setting.AppSubUrl + "/profile", Icon: "gicon gicon-preferences"},
-				{Text: "Change Password", Id: "change-password", Url: setting.AppSubUrl + "/profile/password", Icon: "fa fa-fw fa-lock", HideFromMenu: true},
+				{Text: "Sign out", Id: "sign-out", Url: setting.AppSubUrl + "/logout", Icon: "fa fa-fw fa-sign-out", Target: "_self"},
 			},
 		}
 
-		if !setting.DisableSignoutMenu {
-			// add sign out first
-			profileNode.Children = append(profileNode.Children, &dtos.NavLink{
-				Text: "Sign out", Id: "sign-out", Url: setting.AppSubUrl + "/logout", Icon: "fa fa-fw fa-sign-out", Target: "_self",
-			})
+		if c.OrgRole == m.ROLE_ADMIN {
+				profileNode.Children = append(profileNode.Children, &dtos.NavLink{
+					Text: "Preferences", Id: "profile-settings", Url: setting.AppSubUrl + "/profile", Icon: "gicon gicon-preferences",
+				})
+				profileNode.Children = append(profileNode.Children, &dtos.NavLink{
+					Text: "Change Password", Id: "change-password", Url: setting.AppSubUrl + "/profile/password", Icon: "fa fa-fw fa-lock", HideFromMenu: true,
+				})
 		}
+
 
 		data.NavTree = append(data.NavTree, profileNode)
 	}
@@ -331,16 +333,27 @@ func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, er
 	}
 
 	data.NavTree = append(data.NavTree, &dtos.NavLink{
+		Text:         "Home",
+		SubTitle:     "Datasentinel",
+		Id:           "home",
+		Url:          "#",
+		Icon:         "fa fa-home",
+		HideFromMenu: true,
+		Children: []*dtos.NavLink{
+			{Text: "Home", Id: "home", Url: setting.AppSubUrl + "/", Icon: "fa fa-home", HideFromTabs: true},
+		},
+	})
+
+	data.NavTree = append(data.NavTree, &dtos.NavLink{
 		Text:         "Help",
-		SubTitle:     fmt.Sprintf(`%s v%s (%s)`, setting.ApplicationName, setting.BuildVersion, setting.BuildCommit),
+		SubTitle:     "Datasentinel",
 		Id:           "help",
 		Url:          "#",
 		Icon:         "gicon gicon-question",
 		HideFromMenu: true,
 		Children: []*dtos.NavLink{
-			{Text: "Keyboard shortcuts", Url: "/shortcuts", Icon: "fa fa-fw fa-keyboard-o", Target: "_self"},
-			{Text: "Community site", Url: "http://community.grafana.com", Icon: "fa fa-fw fa-comment", Target: "_blank"},
-			{Text: "Documentation", Url: "http://docs.grafana.org", Icon: "fa fa-fw fa-file", Target: "_blank"},
+			{Text: "Web site", Url: "https://www.datasentinel.io", Icon: "fa fa-fw fa-file", Target: "_blank"},
+			{Text: "Documentation", Url: "https://doc.datasentinel.io/index.html", Icon: "fa fa-fw fa-book", Target: "_blank"},
 		},
 	})
 

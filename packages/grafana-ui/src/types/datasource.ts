@@ -25,7 +25,7 @@ export class DataSourcePlugin<
   DSType extends DataSourceApi<TQuery, TOptions>,
   TQuery extends DataQuery = DataQuery,
   TOptions extends DataSourceJsonData = DataSourceJsonData
-> extends GrafanaPlugin<DataSourcePluginMeta> {
+  > extends GrafanaPlugin<DataSourcePluginMeta> {
   DataSourceClass: DataSourceConstructor<DSType, TQuery, TOptions>;
   components: DataSourcePluginComponents<DSType, TQuery, TOptions>;
 
@@ -128,7 +128,7 @@ export interface DataSourcePluginComponents<
   DSType extends DataSourceApi<TQuery, TOptions>,
   TQuery extends DataQuery = DataQuery,
   TOptions extends DataSourceJsonData = DataSourceJsonData
-> {
+  > {
   QueryCtrl?: any;
   AnnotationsQueryCtrl?: any;
   VariableQueryEditor?: any;
@@ -145,8 +145,8 @@ export interface DataSourceConstructor<
   DSType extends DataSourceApi<TQuery, TOptions>,
   TQuery extends DataQuery = DataQuery,
   TOptions extends DataSourceJsonData = DataSourceJsonData
-> {
-  new (instanceSettings: DataSourceInstanceSettings<TOptions>, ...args: any[]): DSType;
+  > {
+  new(instanceSettings: DataSourceInstanceSettings<TOptions>, ...args: any[]): DSType;
 }
 
 /**
@@ -158,7 +158,7 @@ export interface DataSourceConstructor<
 export abstract class DataSourceApi<
   TQuery extends DataQuery = DataQuery,
   TOptions extends DataSourceJsonData = DataSourceJsonData
-> {
+  > {
   /**
    *  Set in constructor
    */
@@ -228,6 +228,11 @@ export abstract class DataSourceApi<
   getTagKeys?(options?: any): Promise<MetricFindValue[]>;
 
   /**
+   * Get tag keys from measurement for adhoc filters
+   */
+  getTagKeysFromMeasurement?(options: any): Promise<MetricFindValue[]>;
+
+  /**
    * Get tag values for adhoc filters
    */
   getTagValues?(options: any): Promise<MetricFindValue[]>;
@@ -274,7 +279,7 @@ export interface QueryEditorProps<
   DSType extends DataSourceApi<TQuery, TOptions>,
   TQuery extends DataQuery = DataQuery,
   TOptions extends DataSourceJsonData = DataSourceJsonData
-> {
+  > {
   datasource: DSType;
   query: TQuery;
   onRunQuery: () => void;
@@ -292,7 +297,7 @@ export interface ExploreQueryFieldProps<
   DSType extends DataSourceApi<TQuery, TOptions>,
   TQuery extends DataQuery = DataQuery,
   TOptions extends DataSourceJsonData = DataSourceJsonData
-> extends QueryEditorProps<DSType, TQuery, TOptions> {
+  > extends QueryEditorProps<DSType, TQuery, TOptions> {
   datasourceStatus: DataSourceStatus;
   history: any[];
   onHint?: (action: QueryFixAction) => void;
