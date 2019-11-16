@@ -1,8 +1,12 @@
 import React, { FC } from 'react';
 import { PanelMenuItem } from '@grafana/ui';
 
+// interface Props {
+//   children: any;
+// }
+
 interface Props {
-  children: any;
+  key: any;
 }
 
 export const PanelHeaderMenuItem: FC<Props & PanelMenuItem> = props => {
