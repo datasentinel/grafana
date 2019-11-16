@@ -392,7 +392,7 @@ export class DashNav extends PureComponent<Props> {
   }
 
   renderDatasentinelMenu() {
-    const divStyle = { width: '170px', marginTop: '20px', marginLeft: '-30px' };
+    const divStyle = { width: '170px', marginTop: '20px' };
 
     return (
       <>
