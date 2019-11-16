@@ -1,0 +1,41 @@
+0 silly argv { _: [ 'version' ],
+0 silly argv   push: false,
+0 silly argv   'git-tag-version': false,
+0 silly argv   gitTagVersion: false,
+0 silly argv   'force-publish': true,
+0 silly argv   forcePublish: true,
+0 silly argv   exact: true,
+0 silly argv   lernaVersion: '3.15.0',
+0 silly argv   '$0':
+0 silly argv    '/soft/devel/grafana/src/github.com/datasentinel/grafana/node_modules/.bin/lerna' }
+1 notice cli v3.15.0
+2 verbose rootPath /soft/devel/grafana/src/github.com/datasentinel/grafana
+3 info current version 6.4.4
+4 notice FYI git repository validation has been skipped, please ensure your version bumps are correct
+5 silly hasTags
+6 verbose hasTags true
+7 error Error: Command failed: git describe --always --long --dirty --first-parent
+7 error error: unknown option `first-parent'
+7 error usage: git describe [options] <committish>*
+7 error    or: git describe [options] --dirty
+7 error
+7 error     --contains            find the tag that comes after the commit
+7 error     --debug               debug search strategy on stderr
+7 error     --all                 use any ref
+7 error     --tags                use any tag, even unannotated
+7 error     --long                always use long format
+7 error     --abbrev[=<n>]        use <n> digits to display SHA-1s
+7 error     --exact-match         only output exact matches
+7 error     --candidates <n>      consider <n> most recent tags (default: 10)
+7 error     --match <pattern>     only consider tags matching <pattern>
+7 error     --always              show abbreviated commit object as fallback
+7 error     --dirty[=<mark>]      append <mark> on dirty working tree (default: "-dirty")
+7 error
+7 error
+7 error
+7 error     at makeError (/soft/devel/grafana/src/github.com/datasentinel/grafana/node_modules/execa/index.js:174:9)
+7 error     at Function.module.exports.sync (/soft/devel/grafana/src/github.com/datasentinel/grafana/node_modules/execa/index.js:338:15)
+7 error     at Object.execSync (/soft/devel/grafana/src/github.com/datasentinel/grafana/node_modules/@lerna/child-process/index.js:26:16)
+7 error     at Function.sync (/soft/devel/grafana/src/github.com/datasentinel/grafana/node_modules/@lerna/describe-ref/lib/describe-ref.js:49:31)
+7 error     at collectUpdates (/soft/devel/grafana/src/github.com/datasentinel/grafana/node_modules/@lerna/collect-updates/collect-updates.js:31:56)
+7 error     at VersionCommand.initialize (/soft/devel/grafana/src/github.com/datasentinel/grafana/node_modules/@lerna/version/index.js:188:20)

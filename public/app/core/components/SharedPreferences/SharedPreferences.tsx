@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { FormLabel, Select } from '@grafana/ui';
+import { Select } from '@grafana/ui';
 
 import { DashboardSearchHit, DashboardSearchHitType } from 'app/types';
 import { getBackendSrv } from 'app/core/services/backend_srv';
@@ -105,7 +105,7 @@ export class SharedPreferences extends PureComponent<Props, State> {
   };
 
   render() {
-    const { theme, timezone, homeDashboardId, dashboards } = this.state;
+    const { theme, timezone } = this.state;
 
     return (
       <form className="section gf-form-group" onSubmit={this.onSubmitForm}>
@@ -120,7 +120,7 @@ export class SharedPreferences extends PureComponent<Props, State> {
             width={20}
           />
         </div>
-        <div className="gf-form">
+        {/* <div className="gf-form">
           <FormLabel
             width={11}
             tooltip="Not finding dashboard you want? Star it first, then it should appear in this select box."
@@ -136,7 +136,7 @@ export class SharedPreferences extends PureComponent<Props, State> {
             placeholder="Choose default dashboard"
             width={20}
           />
-        </div>
+        </div> */}
         <div className="gf-form">
           <label className="gf-form-label width-11">Timezone</label>
           <Select

@@ -38,21 +38,21 @@ export interface StateProps {
 
 type Props = StateProps & OwnProps;
 
-const HOME_PAGE = "Home";
-const DB_TIME = "Workload";
-const PG_INSTANCES = "PG instances";
-const TOP_QUERIES = "Top queries";
-const DATA_SIZE = "Data size";
-const SERVERS = "Servers";
-const AGENTS = "Agents";
-const ROLES = "Roles";
-const USERS = "Users";
-const EVENTS = "Events";
-const SETTINGS = "Settings";
-const USER_PROFILE = "userProfile";
-const DOCUMENTATION = "Documentation";
-const RELEASE_NOTES = "Release Notes";
-const ABOUT = "About";
+const HOME_PAGE = 'Home';
+const DB_TIME = 'Workload';
+const PG_INSTANCES = 'PG instances';
+const TOP_QUERIES = 'Top queries';
+const DATA_SIZE = 'Data size';
+const SERVERS = 'Servers';
+const AGENTS = 'Agents';
+const ROLES = 'Roles';
+const USERS = 'Users';
+const EVENTS = 'Events';
+const SETTINGS = 'Settings';
+const USER_PROFILE = 'userProfile';
+const DOCUMENTATION = 'Documentation';
+const RELEASE_NOTES = 'Release Notes';
+const ABOUT = 'About';
 
 // class Organization {
 //   id: number;
@@ -97,7 +97,7 @@ export class DashNav extends PureComponent<Props> {
     { title: USERS, active: false, url: '', icon: 'fa fa-users', dashboard: 'user-list' },
     { title: DOCUMENTATION, active: false, url: '', icon: 'fa fa-book', dashboard: 'documentation' },
     { title: RELEASE_NOTES, active: false, url: '', icon: 'fa fa-newspaper-o', dashboard: 'release-notes' },
-    { title: ABOUT, active: false, url: '', icon: 'fa fa-info', dashboard: 'about' }
+    { title: ABOUT, active: false, url: '', icon: 'fa fa-info', dashboard: 'about' },
   ];
 
   constructor(props: Props) {
@@ -121,6 +121,7 @@ export class DashNav extends PureComponent<Props> {
         if (usr.profile !== 'data admin' || usr.privilege !== 'admin') {
           includeConfiguration = false;
         }
+
         this.loadDatasentinelToolMenu(includeConfiguration);
 
         includeConfiguration = true;
@@ -128,7 +129,6 @@ export class DashNav extends PureComponent<Props> {
           includeConfiguration = false;
         }
         this.loadDatasentinelMenu(includeConfiguration);
-
       } catch (e) {
         console.log(e);
         localStorage.removeItem(USER_PROFILE);
@@ -138,10 +138,10 @@ export class DashNav extends PureComponent<Props> {
 
   onReceivedUserProfile(event: any) {
     this.loadUserProfile();
+    this.forceUpdate();
   }
 
   loadDatasentinelToolMenu(includeConfiguration = true) {
-
     this.toolMenu = [];
 
     if (includeConfiguration) {
@@ -158,7 +158,6 @@ export class DashNav extends PureComponent<Props> {
   }
 
   loadDatasentinelMenu(includeConfiguration = true) {
-
     this.menu = [];
 
     this.menu.push({ text: HOME_PAGE, iconClassName: 'fa fa-home', onClick: this.onViewHome });
@@ -176,51 +175,51 @@ export class DashNav extends PureComponent<Props> {
 
   onViewAgents = () => {
     appEvents.emit('home-buttons', { dashboard: 'agents' });
-  }
+  };
 
   onViewRoles = () => {
     appEvents.emit('home-buttons', { dashboard: 'access-roles' });
-  }
+  };
 
   onViewUsers = () => {
     appEvents.emit('home-buttons', { dashboard: 'user-list' });
-  }
+  };
 
   onViewDocumentation = () => {
-    window.open("https://doc.datasentinel.io/index.html");
-  }
+    window.open('https://doc.datasentinel.io/index.html');
+  };
 
   onViewReleaseNotes = () => {
-    window.open("https://doc.datasentinel.io/release-notes.html");
-  }
+    window.open('https://doc.datasentinel.io/release-notes.html');
+  };
 
   onViewAbout = () => {
     appEvents.emit('home-buttons', { dashboard: 'about' });
-  }
+  };
 
   onViewHome = () => {
     appEvents.emit('home-buttons', { dashboard: 'home' });
-  }
+  };
 
   onViewWorkload = () => {
     appEvents.emit('home-buttons', { dashboard: 'db-workload' });
-  }
+  };
 
   onViewQueries = () => {
     appEvents.emit('home-buttons', { dashboard: 'sql-stats' });
-  }
+  };
 
   onViewPgInstances = () => {
     appEvents.emit('home-buttons', { dashboard: 'registered-pg-instances' });
-  }
+  };
 
   onViewServer = () => {
     appEvents.emit('home-buttons', { dashboard: 'registered-servers' });
-  }
+  };
 
   onViewDataSize = () => {
     appEvents.emit('home-buttons', { dashboard: 'data-size' });
-  }
+  };
 
   onDahboardNameClick = () => {
     appEvents.emit('show-dash-search');
@@ -302,7 +301,6 @@ export class DashNav extends PureComponent<Props> {
     const fullElement = document.getElementById('fullScreen');
 
     if (document.fullscreenEnabled) {
-
       if (!document.fullscreenElement) {
         fullElement.requestFullscreen();
       } else {
@@ -311,34 +309,31 @@ export class DashNav extends PureComponent<Props> {
     } else {
       console.log('Your browser does not support full screen');
     }
-  }
+  };
 
   getTitle(): string {
     const url: string = window.location.href;
     let name: string = HOME_PAGE;
 
-    if (url.indexOf("/db-time") > -1) {
+    if (url.indexOf('/db-workload') > -1) {
       name = DB_TIME;
-    } else if (url.indexOf("/data-size") > -1) {
+    } else if (url.indexOf('/data-size') > -1) {
       name = DATA_SIZE;
-    } else if (url.indexOf("/registered-pg-instance") > -1 ||
-      url.indexOf("/pg-instance") > -1) {
+    } else if (url.indexOf('/registered-pg-instance') > -1 || url.indexOf('/pg-instance') > -1) {
       name = PG_INSTANCES;
-    } else if (url.indexOf("/sql-stat") > -1 ||
-      url.indexOf("/query") > -1) {
+    } else if (url.indexOf('/sql-stat') > -1 || url.indexOf('/query') > -1) {
       name = TOP_QUERIES;
-    } else if (url.indexOf("/events") > -1) {
+    } else if (url.indexOf('/events') > -1) {
       name = EVENTS;
-    } else if (url.indexOf("/settings") > -1) {
+    } else if (url.indexOf('/settings') > -1) {
       name = SETTINGS;
-    } else if (url.indexOf("/agents") > -1) {
+    } else if (url.indexOf('/agents') > -1) {
       name = AGENTS;
-    } else if (url.indexOf("/registered-servers") > -1 ||
-      url.indexOf("/server") > -1) {
+    } else if (url.indexOf('/registered-servers') > -1 || url.indexOf('/server') > -1) {
       name = SERVERS;
-    } else if (url.indexOf("/user") > -1) {
+    } else if (url.indexOf('/user') > -1) {
       name = USERS;
-    } else if (url.indexOf("/access-role") > -1) {
+    } else if (url.indexOf('/access-role') > -1) {
       name = ROLES;
     }
 
@@ -348,41 +343,46 @@ export class DashNav extends PureComponent<Props> {
   getCssIcon(): string {
     const name: string = this.getTitle();
 
-    const module = _.find(this.items, (item) => item.title === name);
+    const module = _.find(this.items, item => item.title === name);
 
-    return module.icon + " fg-pgsentinel";
+    return module.icon + ' fg-pgsentinel';
   }
 
   renderDatasentinelToolMenu() {
-
     return (
-
       <>
         <div>
-          <span className="panel-container">
-            <span className="panel-header">
-              <span className="panel-title" >
-                <span style={{ fontSize: '18px', textAlign: 'center', marginTop: '-10px', width: '50px'}} data-toggle="dropdown">
-                  <i className="fa fa-cog" />
-                </span>
-                <span className="panel-menu-container dropdown">
-                  <span className="fa fa-caret-down panel-menu-toggle" data-toggle="dropdown"></span>
-                  <ul className="dropdown-menu dropdown-menu--menu panel-menu" role='menu'>
-                    {this.toolMenu.map((menuItem, idx: number) => {
-                      return (
-                        <PanelHeaderMenuItem
-                          key={`${menuItem.text}${idx}`}
-                          type={menuItem.type}
-                          text={menuItem.text}
-                          iconClassName={menuItem.iconClassName}
-                          onClick={menuItem.onClick}
-                          shortcut={menuItem.shortcut}
-                        >
-                        </PanelHeaderMenuItem>
-                      );
-                    })}
-                  </ul>
-                </span>
+          <span className="panel-header">
+            <span className="panel-title" style={{ marginTop: '20px' }}>
+              <span
+                style={{
+                  fontSize: '18px',
+                  textAlign: 'center',
+                  marginTop: '-10px',
+                  width: '50px',
+                  color: '#263c53',
+                  cursor: 'pointer',
+                }}
+                data-toggle="dropdown"
+              >
+                <i className="fa fa-cog" />
+              </span>
+              <span className="panel-menu-container dropdown">
+                <span className="fa fa-caret-down panel-menu-toggle" data-toggle="dropdown" />
+                <ul className="dropdown-menu dropdown-menu--menu panel-menu" role="menu">
+                  {this.toolMenu.map((menuItem, idx: number) => {
+                    return (
+                      <PanelHeaderMenuItem
+                        key={`${menuItem.text}${idx}`}
+                        type={menuItem.type}
+                        text={menuItem.text}
+                        iconClassName={menuItem.iconClassName}
+                        onClick={menuItem.onClick}
+                        shortcut={menuItem.shortcut}
+                      />
+                    );
+                  })}
+                </ul>
               </span>
             </span>
           </span>
@@ -392,47 +392,44 @@ export class DashNav extends PureComponent<Props> {
   }
 
   renderDatasentinelMenu() {
-
-    const divStyle = { 'width': '120px' };
+    const divStyle = { width: '170px', marginTop: '20px', marginLeft: '-30px' };
 
     return (
       <>
         <div>
-          <span className="panel-container">
-            <span className="panel-header">
-              <span className="panel-title" style={divStyle}>
-                <span className="panel-title-text" data-toggle="dropdown">
-                  <h4><i className={`${this.getCssIcon()}`} />&nbsp;&nbsp;{`${this.getTitle()}`}</h4>
-                </span>
-                <span className="panel-menu-container dropdown">
-                  <span className="fa fa-caret-down panel-menu-toggle" data-toggle="dropdown"></span>
-                  <ul className="dropdown-menu dropdown-menu--menu panel-menu" role='menu'>
-                    {this.menu.map((menuItem, idx: number) => {
-                      return (
-                        <PanelHeaderMenuItem
-                          key={`${menuItem.text}${idx}`}
-                          type={menuItem.type}
-                          text={menuItem.text}
-                          iconClassName={menuItem.iconClassName}
-                          onClick={menuItem.onClick}
-                          shortcut={menuItem.shortcut}
-                        >
-                        </PanelHeaderMenuItem>
-                      );
-                    })}
-                  </ul>
-                </span>
+          <span className="panel-header">
+            <span className="panel-title" style={divStyle}>
+              <span className="panel-title-text" data-toggle="dropdown">
+                <h4 style={{ color: '#263c53' }}>
+                  <i className={`${this.getCssIcon()}`} />
+                  &nbsp;&nbsp;{`${this.getTitle()}`}
+                </h4>
+              </span>
+              <span className="panel-menu-container dropdown">
+                <span className="fa fa-caret-down panel-menu-toggle" data-toggle="dropdown" />
+                <ul className="dropdown-menu dropdown-menu--menu panel-menu" role="menu">
+                  {this.menu.map((menuItem, idx: number) => {
+                    return (
+                      <PanelHeaderMenuItem
+                        key={`${menuItem.text}${idx}`}
+                        type={menuItem.type}
+                        text={menuItem.text}
+                        iconClassName={menuItem.iconClassName}
+                        onClick={menuItem.onClick}
+                        shortcut={menuItem.shortcut}
+                      />
+                    );
+                  })}
+                </ul>
               </span>
             </span>
           </span>
-
         </div>
       </>
     );
   }
 
   renderDashboardTitleSearchButton() {
-
     const { dashboard } = this.props;
 
     const folderTitle = dashboard.meta.folderTitle;
@@ -494,9 +491,7 @@ export class DashNav extends PureComponent<Props> {
         {this.renderDatasentinelMenu()}
         {this.renderDatasentinelToolMenu()}
         {this.user.isGrafanaAdmin && this.renderDashboardTitleSearchButton()}
-        {!this.user.isGrafanaAdmin && (
-          <div className="navbar__spacer" />
-        )}
+        {!this.user.isGrafanaAdmin && <div className="navbar__spacer" />}
 
         {this.playlistSrv.isPlaying && this.user.isGrafanaAdmin && (
           <div className="navbar-buttons navbar-buttons--playlist">
@@ -572,14 +567,15 @@ export class DashNav extends PureComponent<Props> {
           )}
         </div>
 
-        {this.user.isGrafanaAdmin && (<div className="navbar-buttons navbar-buttons--tv">
-          <DashNavButton
-            tooltip="Cycle view mode"
-            classSuffix="tv"
-            icon="fa fa-desktop"
-            onClick={this.onToggleTVMode}
-          />
-        </div>
+        {this.user.isGrafanaAdmin && (
+          <div className="navbar-buttons navbar-buttons--tv">
+            <DashNavButton
+              tooltip="Cycle view mode"
+              classSuffix="tv"
+              icon="fa fa-desktop"
+              onClick={this.onToggleTVMode}
+            />
+          </div>
         )}
 
         {!dashboard.timepicker.hidden && (
@@ -594,14 +590,8 @@ export class DashNav extends PureComponent<Props> {
         )}
 
         <div className="navbar-buttons" id="fullScreen">
-          <DashNavButton
-            tooltip="Full screen"
-            classSuffix="tv"
-            icon="fa fa-arrows-alt"
-            onClick={this.onFullScreen}
-          />
+          <DashNavButton tooltip="Full screen" classSuffix="tv" icon="fa fa-arrows-alt" onClick={this.onFullScreen} />
         </div>
-
       </div>
     );
   }

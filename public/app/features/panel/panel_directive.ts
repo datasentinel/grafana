@@ -9,7 +9,8 @@ const module = angular.module('grafana.directives');
 
 const panelTemplate = `
   <div class="panel-container" ng-class="{'panel-container--no-title': !ctrl.panel.title.length}">
-      <div class="panel-header" ng-class="{'grid-drag-handle': !ctrl.panel.fullscreen}">
+      <div ng-show="ctrl.panel.title.length > 0 || ctrl.contextSrv.isGrafanaAdmin"
+      class="panel-header" ng-class="{'grid-drag-handle': !ctrl.panel.fullscreen}">
         <span class="panel-info-corner">
           <i class="fa"></i>
           <span class="panel-info-corner-inner"></span>
@@ -19,7 +20,7 @@ const panelTemplate = `
           <i class="fa fa-spinner fa-spin"></i>
         </span>
 
-        <panel-header class="panel-title-container" panel-ctrl="ctrl" aria-label="Panel Title"></panel-header>
+                <panel-header class="panel-title-container" panel-ctrl="ctrl" aria-label="Panel Title"></panel-header>
       </div>
 
       <div class="panel-content">

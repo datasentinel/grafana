@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { User } from 'app/types';
 import { UserOrg } from 'app/core/utils/UserProvider';
-import { LoadingPlaceholder, Button } from '@grafana/ui';
+// import { LoadingPlaceholder, Button } from '@grafana/ui';
 
 export interface Props {
   user: User;
@@ -17,15 +17,15 @@ export class UserOrganizations extends PureComponent<Props> {
   }
 
   render() {
-    const { isLoading, orgs, user } = this.props;
+    // const { isLoading, orgs, user } = this.props;
 
-    if (isLoading) {
-      return <LoadingPlaceholder text="Loading organizations..." />;
-    }
+    // if (isLoading) {
+    //   return <LoadingPlaceholder text="Loading organizations..." />;
+    // }
 
     return (
       <>
-        {orgs.length > 0 && (
+        {/* {orgs.length > 0 && (
           <>
             <h3 className="page-sub-heading">Organizations</h3>
             <div className="gf-form-group">
@@ -65,7 +65,7 @@ export class UserOrganizations extends PureComponent<Props> {
               </table>
             </div>
           </>
-        )}
+        )} */}
       </>
     );
   }

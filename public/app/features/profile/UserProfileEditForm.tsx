@@ -1,7 +1,7 @@
 import React, { PureComponent, ChangeEvent, MouseEvent } from 'react';
-import { Button, FormLabel, Input, Tooltip } from '@grafana/ui';
+// import { Button, FormLabel, Input, Tooltip } from '@grafana/ui';
 import { User } from 'app/types';
-import config from 'app/core/config';
+// import config from 'app/core/config';
 import { ProfileUpdateFields } from 'app/core/utils/UserProvider';
 
 export interface Props {
@@ -49,13 +49,13 @@ export class UserProfileEditForm extends PureComponent<Props, State> {
   };
 
   render() {
-    const { name, email, login } = this.state;
-    const { isSavingUser } = this.props;
-    const { disableLoginForm } = config;
+    // const { name, email, login } = this.state;
+    // const { isSavingUser } = this.props;
+    // const { disableLoginForm } = config;
 
     return (
       <>
-        <h3 className="page-sub-heading">Edit Profile</h3>
+        {/* <h3 className="page-sub-heading">Edit Profile</h3>
         <form name="userForm" className="gf-form-group">
           <div className="gf-form max-width-30">
             <FormLabel className="width-8">Name</FormLabel>
@@ -96,7 +96,7 @@ export class UserProfileEditForm extends PureComponent<Props, State> {
               Save
             </Button>
           </div>
-        </form>
+            </form> */}
       </>
     );
   }

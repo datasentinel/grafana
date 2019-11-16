@@ -132,9 +132,6 @@ func main() {
 		case "package":
 			grunt(gruntBuildArg("build")...)
 			grunt(gruntBuildArg("package")...)
-			if goos == linux {
-				createLinuxPackages()
-			}
 
 		case "package-only":
 			grunt(gruntBuildArg("package")...)
