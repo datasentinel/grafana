@@ -50,8 +50,6 @@ const USERS = 'Users';
 const EVENTS = 'Events';
 const SETTINGS = 'Settings';
 const USER_PROFILE = 'userProfile';
-const DOCUMENTATION = 'Documentation';
-const RELEASE_NOTES = 'Release Notes';
 const ABOUT = 'About';
 
 // class Organization {
@@ -95,8 +93,6 @@ export class DashNav extends PureComponent<Props> {
     { title: AGENTS, active: false, url: '', icon: 'fa fa-link', dashboard: 'agents' },
     { title: ROLES, active: false, url: '', icon: 'fa fa-filter', dashboard: 'access-roles' },
     { title: USERS, active: false, url: '', icon: 'fa fa-users', dashboard: 'user-list' },
-    { title: DOCUMENTATION, active: false, url: '', icon: 'fa fa-book', dashboard: 'documentation' },
-    { title: RELEASE_NOTES, active: false, url: '', icon: 'fa fa-newspaper-o', dashboard: 'release-notes' },
     { title: ABOUT, active: false, url: '', icon: 'fa fa-info', dashboard: 'about' },
   ];
 
@@ -151,9 +147,6 @@ export class DashNav extends PureComponent<Props> {
       this.toolMenu.push({ type: 'divider' });
     }
 
-    this.toolMenu.push({ text: DOCUMENTATION, iconClassName: 'fa fa-book', onClick: this.onViewDocumentation });
-    this.toolMenu.push({ text: RELEASE_NOTES, iconClassName: 'fa fa-newspaper-o', onClick: this.onViewReleaseNotes });
-    this.toolMenu.push({ type: 'divider' });
     this.toolMenu.push({ text: ABOUT, iconClassName: 'fa fa-info', onClick: this.onViewAbout });
   }
 
@@ -366,6 +359,8 @@ export class DashNav extends PureComponent<Props> {
                 data-toggle="dropdown"
               >
                 <i className="fa fa-cog" />
+                &nbsp;&nbsp;
+                <i className="fa fa-caret-down" style={{ color: '#A9A9A9' }} />
               </span>
               <span className="panel-menu-container dropdown">
                 <span className="fa fa-caret-down panel-menu-toggle" data-toggle="dropdown" />
@@ -392,7 +387,7 @@ export class DashNav extends PureComponent<Props> {
   }
 
   renderDatasentinelMenu() {
-    const divStyle = { width: '170px', marginTop: '20px' };
+    const divStyle = { width: '190px', marginTop: '20px' };
 
     return (
       <>
@@ -402,7 +397,8 @@ export class DashNav extends PureComponent<Props> {
               <span className="panel-title-text" data-toggle="dropdown">
                 <h4 style={{ color: '#263c53' }}>
                   <i className={`${this.getCssIcon()}`} />
-                  &nbsp;&nbsp;{`${this.getTitle()}`}
+                  &nbsp;&nbsp;{`${this.getTitle()}`}&nbsp;&nbsp;
+                  <i className="fa fa-caret-down" style={{ color: '#A9A9A9' }} />
                 </h4>
               </span>
               <span className="panel-menu-container dropdown">

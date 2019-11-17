@@ -84,14 +84,15 @@ div.flot-text {
   position: relative;
   // Fixes scrolling on mobile devices
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 // For larger screens, set back to hidden to avoid double scroll bars
 @include media-breakpoint-up(md) {
   .panel-content {
     overflow-x: hidden;
-    overflow-y: scroll;  }
+    overflow-y: auto;
+  }
 }
 
 .dashboard-header {

@@ -351,6 +351,7 @@ func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, er
 		Children: []*dtos.NavLink{
 			{Text: "Web site", Url: "https://www.datasentinel.io", Icon: "fa fa-fw fa-file", Target: "_blank"},
 			{Text: "Documentation", Url: "https://doc.datasentinel.io/index.html", Icon: "fa fa-fw fa-book", Target: "_blank"},
+			{Text: "Release notes", Url: "https://doc.datasentinel.io/release-notes.html", Icon: "fa fa-fw fa-newspaper-o", Target: "_blank"},
 		},
 	})
 
