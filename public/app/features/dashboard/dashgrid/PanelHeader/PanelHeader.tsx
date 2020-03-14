@@ -81,7 +81,7 @@ export class PanelHeader extends Component<Props, State> {
       'grid-drag-handle': !isFullscreen,
     });
 
-    console.log('render panelHeader');
+    // console.log('render panelHeader');
 
     return (
       <>

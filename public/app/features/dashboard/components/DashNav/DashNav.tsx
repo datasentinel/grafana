@@ -41,6 +41,7 @@ type Props = StateProps & OwnProps;
 const HOME_PAGE = 'Home';
 const DB_TIME = 'Workload';
 const PG_INSTANCES = 'PG instances';
+const REPORTING = 'Reporting';
 const TOP_QUERIES = 'Top queries';
 const DATA_SIZE = 'Data size';
 const SERVERS = 'Servers';
@@ -51,6 +52,7 @@ const EVENTS = 'Events';
 const SETTINGS = 'Settings';
 const USER_PROFILE = 'userProfile';
 const ABOUT = 'About';
+const EXECUTION_PLAN = 'Execution plan';
 
 // class Organization {
 //   id: number;
@@ -90,9 +92,12 @@ export class DashNav extends PureComponent<Props> {
     { title: PG_INSTANCES, active: false, url: '', icon: 'fa fa-database', dashboard: 'registered-pg-instances' },
     { title: SERVERS, active: false, url: '', icon: 'fa fa-server', dashboard: 'registered-servers' },
     { title: DATA_SIZE, active: false, url: '', icon: 'fa fa-line-chart', dashboard: 'data-size' },
+    { title: REPORTING, active: false, url: '', icon: 'fa fa-file-pdf-o', dashboard: 'export-workload' },
     { title: AGENTS, active: false, url: '', icon: 'fa fa-link', dashboard: 'agents' },
     { title: ROLES, active: false, url: '', icon: 'fa fa-filter', dashboard: 'access-roles' },
     { title: USERS, active: false, url: '', icon: 'fa fa-users', dashboard: 'user-list' },
+    { title: EXECUTION_PLAN, active: false, url: '', icon: 'fa fa-share-alt-square', dashboard: 'execution-plan' },
+    { title: SETTINGS, active: false, url: '', icon: 'fa fa-crosshairs', dashboard: 'settings' },
     { title: ABOUT, active: false, url: '', icon: 'fa fa-info', dashboard: 'about' },
   ];
 
@@ -147,6 +152,13 @@ export class DashNav extends PureComponent<Props> {
       this.toolMenu.push({ type: 'divider' });
     }
 
+    this.toolMenu.push({ text: EXECUTION_PLAN, iconClassName: 'fa fa-share-alt-square', onClick: this.onViewPlan });
+    this.toolMenu.push({ type: 'divider' });
+
+    if (includeConfiguration) {
+      this.toolMenu.push({ text: SETTINGS, iconClassName: 'fa fa-crosshairs', onClick: this.onViewSettings });
+      this.toolMenu.push({ type: 'divider' });
+    }
     this.toolMenu.push({ text: ABOUT, iconClassName: 'fa fa-info', onClick: this.onViewAbout });
   }
 
@@ -161,7 +173,12 @@ export class DashNav extends PureComponent<Props> {
       this.menu.push({ type: 'divider' });
       this.menu.push({ text: PG_INSTANCES, iconClassName: 'fa fa-database', onClick: this.onViewPgInstances });
       this.menu.push({ text: SERVERS, iconClassName: 'fa fa-server', onClick: this.onViewServer });
-      this.menu.push({ type: 'divider' });
+    }
+
+    this.menu.push({ type: 'divider' });
+    this.menu.push({ text: REPORTING, iconClassName: 'fa fa-file-pdf-o', onClick: this.onReporting });
+
+    if (includeConfiguration) {
       this.menu.push({ text: DATA_SIZE, iconClassName: 'fa fa-line-chart', onClick: this.onViewDataSize });
     }
   }
@@ -190,8 +207,20 @@ export class DashNav extends PureComponent<Props> {
     appEvents.emit('home-buttons', { dashboard: 'about' });
   };
 
+  onReporting = () => {
+    appEvents.emit('home-buttons', { dashboard: 'export-workload' });
+  };
+
   onViewHome = () => {
     appEvents.emit('home-buttons', { dashboard: 'home' });
+  };
+
+  onViewPlan = () => {
+    appEvents.emit('home-buttons', { dashboard: 'execution-plan' });
+  };
+
+  onViewSettings = () => {
+    appEvents.emit('home-buttons', { dashboard: 'settings' });
   };
 
   onViewWorkload = () => {
@@ -320,6 +349,8 @@ export class DashNav extends PureComponent<Props> {
       name = EVENTS;
     } else if (url.indexOf('/settings') > -1) {
       name = SETTINGS;
+    } else if (url.indexOf('/execution-plan') > -1) {
+      name = EXECUTION_PLAN;
     } else if (url.indexOf('/agents') > -1) {
       name = AGENTS;
     } else if (url.indexOf('/registered-servers') > -1 || url.indexOf('/server') > -1) {
@@ -328,6 +359,8 @@ export class DashNav extends PureComponent<Props> {
       name = USERS;
     } else if (url.indexOf('/access-role') > -1) {
       name = ROLES;
+    } else if (url.indexOf('/export-workload') > -1) {
+      name = REPORTING;
     }
 
     return name;
@@ -387,7 +420,7 @@ export class DashNav extends PureComponent<Props> {
   }
 
   renderDatasentinelMenu() {
-    const divStyle = { width: '190px', marginTop: '20px' };
+    const divStyle = { width: '200px', marginTop: '20px' };
 
     return (
       <>

@@ -141,8 +141,18 @@ import 'vendor/flot/jquery.flot.fillbelow';
 import 'vendor/flot/jquery.flot.crosshair';
 import 'vendor/flot/jquery.flot.dashes';
 import 'vendor/flot/jquery.flot.gauge';
+import 'vendor/flot/jquery.flot.gauge';
+
+import download from 'downloadjs';
+exposeToPlugin('downloadjs', download);
+
 import sqlFormatter from 'sql-formatter';
 exposeToPlugin('sql-formatter', sqlFormatter);
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+exposeToPlugin('pdfmake', pdfMake);
 
 const flotDeps = [
   'jquery.flot',
