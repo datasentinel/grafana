@@ -43,15 +43,18 @@ const DB_TIME = 'Workload';
 const PG_INSTANCES = 'PG instances';
 const REPORTING = 'Reporting';
 const TOP_QUERIES = 'Top queries';
+const TOP_TABLES = 'Top tables / indexes';
+const VACUUM = 'Vacuum activity';
 const DATA_SIZE = 'Data size';
 const SERVERS = 'Servers';
 const AGENTS = 'Agents';
 const ROLES = 'Roles';
 const USERS = 'Users';
 const EVENTS = 'Events';
-const SETTINGS = 'Settings';
+const SETTINGS = 'Global settings';
+const AGENTLESS_CONFIGURATION = 'Agentless settings';
 const USER_PROFILE = 'userProfile';
-const ABOUT = 'About';
+const ABOUT = 'About Datasentinel';
 const EXECUTION_PLAN = 'Execution plan';
 
 // class Organization {
@@ -89,6 +92,8 @@ export class DashNav extends PureComponent<Props> {
     { title: HOME_PAGE, active: false, url: '', icon: 'fa fa-home', dashboard: 'home' },
     { title: DB_TIME, active: false, url: '', icon: 'fa fa-area-chart', dashboard: 'db-workload' },
     { title: TOP_QUERIES, active: false, url: '', icon: 'fa fa-cogs', dashboard: 'sql-stats' },
+    { title: TOP_TABLES, active: false, url: '', icon: 'fa fa-table', dashboard: 'top-segments' },
+    { title: VACUUM, active: false, url: '', icon: 'fa fa-eraser', dashboard: 'vacuum-activity' },
     { title: PG_INSTANCES, active: false, url: '', icon: 'fa fa-database', dashboard: 'registered-pg-instances' },
     { title: SERVERS, active: false, url: '', icon: 'fa fa-server', dashboard: 'registered-servers' },
     { title: DATA_SIZE, active: false, url: '', icon: 'fa fa-line-chart', dashboard: 'data-size' },
@@ -98,6 +103,13 @@ export class DashNav extends PureComponent<Props> {
     { title: USERS, active: false, url: '', icon: 'fa fa-users', dashboard: 'user-list' },
     { title: EXECUTION_PLAN, active: false, url: '', icon: 'fa fa-share-alt-square', dashboard: 'execution-plan' },
     { title: SETTINGS, active: false, url: '', icon: 'fa fa-crosshairs', dashboard: 'settings' },
+    {
+      title: AGENTLESS_CONFIGURATION,
+      active: false,
+      url: '',
+      icon: 'fa fa-eye-slash',
+      dashboard: 'agentless-configuration',
+    },
     { title: ABOUT, active: false, url: '', icon: 'fa fa-info', dashboard: 'about' },
   ];
 
@@ -157,6 +169,11 @@ export class DashNav extends PureComponent<Props> {
 
     if (includeConfiguration) {
       this.toolMenu.push({ text: SETTINGS, iconClassName: 'fa fa-crosshairs', onClick: this.onViewSettings });
+      this.toolMenu.push({
+        text: AGENTLESS_CONFIGURATION,
+        iconClassName: 'fa fa-eye-slash',
+        onClick: this.onViewAgentless,
+      });
       this.toolMenu.push({ type: 'divider' });
     }
     this.toolMenu.push({ text: ABOUT, iconClassName: 'fa fa-info', onClick: this.onViewAbout });
@@ -168,6 +185,8 @@ export class DashNav extends PureComponent<Props> {
     this.menu.push({ text: HOME_PAGE, iconClassName: 'fa fa-home', onClick: this.onViewHome });
     this.menu.push({ text: DB_TIME, iconClassName: 'fa fa-area-chart', onClick: this.onViewWorkload });
     this.menu.push({ text: TOP_QUERIES, iconClassName: 'fa fa-cogs', onClick: this.onViewQueries });
+    this.menu.push({ text: TOP_TABLES, iconClassName: 'fa fa-table', onClick: this.onViewTables });
+    this.menu.push({ text: VACUUM, iconClassName: 'fa fa-eraser', onClick: this.onViewVacuum });
 
     if (includeConfiguration) {
       this.menu.push({ type: 'divider' });
@@ -223,12 +242,24 @@ export class DashNav extends PureComponent<Props> {
     appEvents.emit('home-buttons', { dashboard: 'settings' });
   };
 
+  onViewAgentless = () => {
+    appEvents.emit('home-buttons', { dashboard: 'agentless-configuration' });
+  };
+
   onViewWorkload = () => {
     appEvents.emit('home-buttons', { dashboard: 'db-workload' });
   };
 
   onViewQueries = () => {
     appEvents.emit('home-buttons', { dashboard: 'sql-stats' });
+  };
+
+  onViewTables = () => {
+    appEvents.emit('home-buttons', { dashboard: 'top-segments' });
+  };
+
+  onViewVacuum = () => {
+    appEvents.emit('home-buttons', { dashboard: 'vacuum-activity' });
   };
 
   onViewPgInstances = () => {
@@ -345,12 +376,18 @@ export class DashNav extends PureComponent<Props> {
       name = PG_INSTANCES;
     } else if (url.indexOf('/sql-stat') > -1 || url.indexOf('/query') > -1) {
       name = TOP_QUERIES;
+    } else if (url.indexOf('/top-segments') > -1) {
+      name = TOP_TABLES;
+    } else if (url.indexOf('/vacuum') > -1) {
+      name = VACUUM;
     } else if (url.indexOf('/events') > -1) {
       name = EVENTS;
     } else if (url.indexOf('/settings') > -1) {
       name = SETTINGS;
     } else if (url.indexOf('/execution-plan') > -1) {
       name = EXECUTION_PLAN;
+    } else if (url.indexOf('/agentless-configuration') > -1 || url.indexOf('/connection-settings') > -1) {
+      name = AGENTLESS_CONFIGURATION;
     } else if (url.indexOf('/agents') > -1) {
       name = AGENTS;
     } else if (url.indexOf('/registered-servers') > -1 || url.indexOf('/server') > -1) {
@@ -420,7 +457,7 @@ export class DashNav extends PureComponent<Props> {
   }
 
   renderDatasentinelMenu() {
-    const divStyle = { width: '200px', marginTop: '20px' };
+    const divStyle = { width: '220px', marginTop: '20px' };
 
     return (
       <>
