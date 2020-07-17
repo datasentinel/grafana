@@ -142,6 +142,10 @@ import 'vendor/flot/jquery.flot.crosshair';
 import 'vendor/flot/jquery.flot.dashes';
 import 'vendor/flot/jquery.flot.gauge';
 import 'vendor/flot/jquery.flot.gauge';
+import 'vendor/flot/chartjs-plugin-colorschemes.min';
+
+import * as chartjs from 'chart.js';
+exposeToPlugin('chartjs', chartjs);
 
 import download from 'downloadjs';
 exposeToPlugin('downloadjs', download);

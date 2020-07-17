@@ -44,6 +44,7 @@ const PG_INSTANCES = 'PG instances';
 const REPORTING = 'Reporting';
 const TOP_QUERIES = 'Top queries';
 const TOP_TABLES = 'Top tables / indexes';
+const ANALYTICS = 'Data analysis';
 // const VACUUM = 'Vacuum activity';
 const DATA_SIZE = 'Data size';
 const SERVERS = 'Servers';
@@ -93,7 +94,8 @@ export class DashNav extends PureComponent<Props> {
     { title: DB_TIME, active: false, url: '', icon: 'fa fa-area-chart', dashboard: 'db-workload' },
     { title: TOP_QUERIES, active: false, url: '', icon: 'fa fa-cogs', dashboard: 'sql-stats' },
     { title: TOP_TABLES, active: false, url: '', icon: 'fa fa-table', dashboard: 'top-segments' },
-//    { title: VACUUM, active: false, url: '', icon: 'fa fa-eraser', dashboard: 'vacuum-activity' },
+    { title: ANALYTICS, active: false, url: '', icon: 'fa fa-dashboard', dashboard: 'ds-inventory' },
+    //    { title: VACUUM, active: false, url: '', icon: 'fa fa-eraser', dashboard: 'vacuum-activity' },
     { title: PG_INSTANCES, active: false, url: '', icon: 'fa fa-database', dashboard: 'registered-pg-instances' },
     { title: SERVERS, active: false, url: '', icon: 'fa fa-server', dashboard: 'registered-servers' },
     { title: DATA_SIZE, active: false, url: '', icon: 'fa fa-line-chart', dashboard: 'data-size' },
@@ -186,9 +188,11 @@ export class DashNav extends PureComponent<Props> {
     this.menu.push({ text: DB_TIME, iconClassName: 'fa fa-area-chart', onClick: this.onViewWorkload });
     this.menu.push({ text: TOP_QUERIES, iconClassName: 'fa fa-cogs', onClick: this.onViewQueries });
     this.menu.push({ text: TOP_TABLES, iconClassName: 'fa fa-table', onClick: this.onViewTables });
-//    this.menu.push({ text: VACUUM, iconClassName: 'fa fa-eraser', onClick: this.onViewVacuum });
+    //    this.menu.push({ text: VACUUM, iconClassName: 'fa fa-eraser', onClick: this.onViewVacuum });
 
     if (includeConfiguration) {
+      this.menu.push({ type: 'divider' });
+      this.menu.push({ text: ANALYTICS, iconClassName: 'fa fa-dashboard', onClick: this.onViewAnalytics });
       this.menu.push({ type: 'divider' });
       this.menu.push({ text: PG_INSTANCES, iconClassName: 'fa fa-database', onClick: this.onViewPgInstances });
       this.menu.push({ text: SERVERS, iconClassName: 'fa fa-server', onClick: this.onViewServer });
@@ -261,6 +265,17 @@ export class DashNav extends PureComponent<Props> {
       choice = selectedTab;
     }
     const currentDashboard = choice === 'indexes' ? 'top-indexes' : 'top-segments';
+
+    appEvents.emit('home-buttons', { dashboard: currentDashboard });
+  };
+
+  onViewAnalytics = () => {
+    let choice = 'Inventory';
+    const selectedTab = localStorage.getItem('analyticsTab');
+    if (selectedTab) {
+      choice = selectedTab;
+    }
+    const currentDashboard = choice === 'Consumers' ? 'pg-top-consumers' : 'ds-inventory';
 
     appEvents.emit('home-buttons', { dashboard: currentDashboard });
   };
@@ -385,8 +400,10 @@ export class DashNav extends PureComponent<Props> {
       name = TOP_QUERIES;
     } else if (url.indexOf('/top-segments') > -1 || url.indexOf('/top-indexes') > -1) {
       name = TOP_TABLES;
-    // } else if (url.indexOf('/vacuum') > -1) {
-    //   name = VACUUM;
+      // } else if (url.indexOf('/vacuum') > -1) {
+      //   name = VACUUM;
+    } else if (url.indexOf('/ds-inventory') > -1 || url.indexOf('/pg-top-consumers') > -1) {
+      name = ANALYTICS;
     } else if (url.indexOf('/events') > -1) {
       name = EVENTS;
     } else if (url.indexOf('/settings') > -1) {
